@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "258b3b9d-0b48-45f0-9553-3364c27d6588",
+		"name": "JWT Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14199463"
+	},
+	"item": [
+		{
+			"name": "AUTH Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Bruce\",\r\n    \"email\":\"A@B.com\",\r\n    \"password\":\"12345678\",\r\n    \"role\":[\"mod\",\"user\"]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Bruce\",\r\n    \"password\":\"12345678\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "public",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/test/all"
+			},
+			"response": []
+		},
+		{
+			"name": "Access Protected resource",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/test/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Access Protected resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NDc1OTU5MiwiZXhwIjoxNjc0ODQ1OTkyfQ.JzNC39faf-L8UPai9rnQG9FF6wUyGmtQeDyPWBM5D4X2xWvKaqFcZJXV83Fwf8MPMQyrDUeCfixOE5IgxxEWdA",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Access MOD resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTQU0iLCJpYXQiOjE2NzQxNjMxNDUsImV4cCI6MTY3NDI0OTU0NX0.9ezS8aypkA14zaKSKz2sdIvkzAiLMWNbwFSKQGQjGYD9ZkNjK6N9li6BpdI0OAoIE9Xp7-tsAjEj0Hx5sRovDw",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/mod"
+			},
+			"response": []
+		},
+		{
+			"name": "Access ADMIN resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTQU0iLCJpYXQiOjE2NzQxNjMxNDUsImV4cCI6MTY3NDI0OTU0NX0.9ezS8aypkA14zaKSKz2sdIvkzAiLMWNbwFSKQGQjGYD9ZkNjK6N9li6BpdI0OAoIE9Xp7-tsAjEj0Hx5sRovDw",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/admin"
+			},
+			"response": []
+		}
+	]
+}
