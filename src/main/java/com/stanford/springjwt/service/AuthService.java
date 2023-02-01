@@ -77,10 +77,11 @@ public class AuthService {
 
     public ResponseEntity<?> registerUserService(SignupRequest signUpRequest) {
 
-
+        boolean setDatabase = false;
         List<Role> all = roleRepository.findAll();
         if(all.isEmpty()) {
             setupH2Database();
+            setDatabase = true;
         }
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
@@ -131,6 +132,9 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
+        if(setDatabase) {
+            setupUserH2Database();
+        }
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -209,7 +213,110 @@ public class AuthService {
         Employee1.setParent_id(1);
         employeeRepository.save(Employee1);
 
+
+
+        // Validate
+
+        List<Role> roleList = roleRepository.findAll();
+        List<Organization> organizationList = organizationRepository.findAll();
+        List<Department> departmentList = departmentRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAll();
+        List<User> userList = userRepository.findAll();
+
         System.out.println("DATABASE SUCCESS");
+    }
+    public void setupUserH2Database() {
+        Set<Role> roles = new HashSet<>();
+
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+
+        // USER
+        User user1 = new User();
+        user1.setId(101l);
+        user1.setEmail("user1@b.com");
+        user1.setPassword("pass");
+        user1.setUsername("user1");
+        user1.setRoles(roles);
+        userRepository.save(user1);
+
+        // Employee
+        Employee Employee1 = new Employee();
+        Employee1.setId(101l);
+        Employee1.setUser_id(101);
+        Employee1.setDepartment_id(1);
+        Employee1.setParent_id(1);
+        employeeRepository.save(Employee1);
+
+        User user2 = new User();
+        user2.setId(102l);
+        user2.setEmail("user2@b.com");
+        user2.setPassword("pass");
+        user2.setUsername("user2");
+        user2.setRoles(roles);
+        userRepository.save(user2);
+
+        Employee Employee2 = new Employee();
+        Employee2.setId(102l);
+        Employee2.setUser_id(102);
+        Employee2.setDepartment_id(1);
+        Employee2.setParent_id(1);
+        employeeRepository.save(Employee2);
+
+
+        User user3 = new User();
+        user3.setId(103l);
+        user3.setEmail("user3@b.com");
+        user3.setPassword("pass");
+        user3.setUsername("user3");
+        user3.setRoles(roles);
+        userRepository.save(user3);
+
+        Employee Employee3 = new Employee();
+        Employee3.setId(103l);
+        Employee3.setUser_id(103);
+        Employee3.setDepartment_id(1);
+        Employee3.setParent_id(1);
+        employeeRepository.save(Employee3);
+
+
+        User user4 = new User();
+        user4.setId(104l);
+        user4.setEmail("user4@b.com");
+        user4.setPassword("pass");
+        user4.setUsername("user4");
+        user4.setRoles(roles);
+        userRepository.save(user4);
+
+        Employee Employee4 = new Employee();
+        Employee4.setId(104l);
+        Employee4.setUser_id(104);
+        Employee4.setDepartment_id(1);
+        Employee4.setParent_id(1);
+        employeeRepository.save(Employee4);
+
+
+        User user5 = new User();
+        user5.setId(105l);
+        user5.setEmail("user5@b.com");
+        user5.setPassword("pass");
+        user5.setUsername("user5");
+        user5.setRoles(roles);
+        userRepository.save(user5);
+
+        Employee Employee5 = new Employee();
+        Employee5.setId(105l);
+        Employee5.setUser_id(105);
+        Employee5.setDepartment_id(1);
+        Employee5.setParent_id(1);
+        employeeRepository.save(Employee5);
+
+
+
+        List<User> userList = userRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAll();
+        System.out.println("DATABASE USERS ADDED SUCCESS");
     }
 
 }
