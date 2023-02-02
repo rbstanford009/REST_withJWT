@@ -241,11 +241,11 @@ public class AuthService {
         user1.setRoles(roles);
         userRepository.save(user1);
 
-        // Employee
+        // Employee Manager of HR
         Employee Employee1 = new Employee();
         Employee1.setId(101l);
         Employee1.setUser_id(101);
-        Employee1.setDepartment_id(1);
+        Employee1.setDepartment_id(2);
         Employee1.setParent_id(1);
         employeeRepository.save(Employee1);
 
@@ -257,10 +257,11 @@ public class AuthService {
         user2.setRoles(roles);
         userRepository.save(user2);
 
+        // Manager of DEV
         Employee Employee2 = new Employee();
         Employee2.setId(102l);
         Employee2.setUser_id(102);
-        Employee2.setDepartment_id(1);
+        Employee2.setDepartment_id(3);
         Employee2.setParent_id(1);
         employeeRepository.save(Employee2);
 
@@ -273,14 +274,15 @@ public class AuthService {
         user3.setRoles(roles);
         userRepository.save(user3);
 
+        // Manager of Management
         Employee Employee3 = new Employee();
         Employee3.setId(103l);
         Employee3.setUser_id(103);
-        Employee3.setDepartment_id(1);
+        Employee3.setDepartment_id(4);
         Employee3.setParent_id(1);
         employeeRepository.save(Employee3);
 
-
+        // DEVELOPERS  3 is development
         User user4 = new User();
         user4.setId(104l);
         user4.setEmail("user4@b.com");
@@ -288,12 +290,11 @@ public class AuthService {
         user4.setUsername("user4");
         user4.setRoles(roles);
         userRepository.save(user4);
-
         Employee Employee4 = new Employee();
         Employee4.setId(104l);
         Employee4.setUser_id(104);
-        Employee4.setDepartment_id(1);
-        Employee4.setParent_id(1);
+        Employee4.setDepartment_id(3);
+        Employee4.setParent_id(102);
         employeeRepository.save(Employee4);
 
 
@@ -304,13 +305,55 @@ public class AuthService {
         user5.setUsername("user5");
         user5.setRoles(roles);
         userRepository.save(user5);
-
         Employee Employee5 = new Employee();
         Employee5.setId(105l);
         Employee5.setUser_id(105);
-        Employee5.setDepartment_id(1);
-        Employee5.setParent_id(1);
+        Employee5.setDepartment_id(3);
+        Employee5.setParent_id(102);
         employeeRepository.save(Employee5);
+
+
+        User user6 = new User();
+        user6.setId(106l);
+        user6.setEmail("user6@b.com");
+        user6.setPassword("pass");
+        user6.setUsername("user6");
+        user6.setRoles(roles);
+        userRepository.save(user6);
+        Employee Employee6 = new Employee();
+        Employee6.setId(106l);
+        Employee6.setUser_id(106);
+        Employee6.setDepartment_id(3);
+        Employee6.setParent_id(102);
+        employeeRepository.save(Employee6);
+
+        User user7 = new User();
+        user7.setId(107l);
+        user7.setEmail("user7@b.com");
+        user7.setPassword("pass");
+        user7.setUsername("user7");
+        user7.setRoles(roles);
+        userRepository.save(user7);
+        Employee Employee7 = new Employee();
+        Employee7.setId(107l);
+        Employee7.setUser_id(107);
+        Employee7.setDepartment_id(3);
+        Employee7.setParent_id(102);
+        employeeRepository.save(Employee7);
+
+        User user8 = new User();
+        user8.setId(108l);
+        user8.setEmail("user8@b.com");
+        user8.setPassword("pass");
+        user8.setUsername("user8");
+        user8.setRoles(roles);
+        userRepository.save(user8);
+        Employee Employee8 = new Employee();
+        Employee8.setId(108l);
+        Employee8.setUser_id(108);
+        Employee8.setDepartment_id(3);
+        Employee8.setParent_id(102);
+        employeeRepository.save(Employee8);
 
 
 
