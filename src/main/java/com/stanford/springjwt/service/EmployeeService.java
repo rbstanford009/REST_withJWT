@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
@@ -28,7 +29,11 @@ public class EmployeeService {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         for (Employee employee:repo){
             EmployeeDto employeeDto = new EmployeeDto();
-            copyProperties(employee, employeeDtos);
+            employeeDto.setId(employee.getId());
+            employeeDto.setParent_id(employee.getParent_id());
+            employeeDto.setDepartment_id(employee.getDepartment_id());
+            employeeDto.setUpdated(new Timestamp(System.currentTimeMillis()));
+            employeeDto.setUser_id(employee.getUser_id());
             employeeDtos.add(employeeDto);
         }
         return employeeDtos;
@@ -39,18 +44,38 @@ public class EmployeeService {
         log.info("EmployeeService: findById");
         Employee employee = employeeRepository.findById(id).orElse(null);
         EmployeeDto employeeDto = new EmployeeDto();
-        copyProperties(employee, employeeDto);
+        employeeDto.setId(employee.getId());
+        employeeDto.setParent_id(employee.getParent_id());
+        employeeDto.setDepartment_id(employee.getDepartment_id());
+        employeeDto.setUpdated(new Timestamp(System.currentTimeMillis()));
+        employeeDto.setUser_id(employee.getUser_id());
         return employeeDto;
     }
 
 
-    public Employee saveOrUpdate(EmployeeDto employeeDto){
-        log.info("EmployeeService: saveOrUpdate, {}", employeeDto.getUser_id());
+    public Employee saveUpdateDelete(EmployeeDto employeeDto){
+        log.info("EmployeeService: saveUpdateDelete, {}", employeeDto.getUser_id());
         Employee employee = new Employee();
         employee.setUpdated(new Timestamp(System.currentTimeMillis()));
         employee.setDepartment_id(employeeDto.getDepartment_id());
         employee.setUser_id(employeeDto.getUser_id());
         employee.setParent_id(employeeDto.getParent_id());
+
+        if(employee.getParent_id() == 999) {
+            Long id = (long) employeeDto.getId();
+
+            List<Long> getThis = new ArrayList<>();
+            getThis.add(id);
+            List<Employee> byId = employeeRepository.findAllById(getThis);
+
+            Employee employeeDelete = byId.get(0);
+//            employee.setDepartment_id(employeeDto.getDepartment_id());
+//            employee.setUser_id(byId.getUser_id());
+//            employee.setParent_id(byId.getParent_id());
+            employeeRepository.delete(employeeDelete);
+            List<Employee> all = employeeRepository.findAll();
+            return employee;
+        }
 
         return employeeRepository.save(employee);
     }

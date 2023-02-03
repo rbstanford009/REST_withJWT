@@ -2,7 +2,8 @@ package com.stanford.springjwt.controllers;
 
 
 import com.stanford.springjwt.dto.EmployeeDto;
-import com.stanford.springjwt.models.Employee;
+import com.stanford.springjwt.models.*;
+import com.stanford.springjwt.repository.*;
 import com.stanford.springjwt.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,31 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+    // DATABASE SETUP
+    @Autowired
+    OrganizationRepository organizationRepository;
+    @Autowired
+    DepartmentRepository departmentRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
+
     @PostMapping(path = "")
-    public ResponseEntity<Long> createOrUpdateEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<Long> createUpdateDeleteEmployee(@RequestBody EmployeeDto employeeDto) {
         log.info("EmployeeController: createOrUpdateEmployee");
-        Employee employee = employeeService.saveOrUpdate(employeeDto);
+        Employee employee = employeeService.saveUpdateDelete(employeeDto);
         return new ResponseEntity<>(employee.getId(), HttpStatus.OK);
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<List<EmployeeDto>> getEmployeeries() {
-        log.info("EmployeeController: getEmployeeries");
-        List<EmployeeDto> employeeies = employeeService.findAll();
-        return new ResponseEntity<>(employeeies, HttpStatus.OK);
+    public ResponseEntity<List<EmployeeDto>> getEmployeeS() {
+        log.info("EmployeeController: getEmployeeS");
+        List<EmployeeDto> emp_s = employeeService.findAll();
+
+        return new ResponseEntity<>(emp_s, HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
@@ -38,5 +52,15 @@ public class EmployeeController {
         log.info("EmployeeController: getEmployee");
         EmployeeDto employee = employeeService.findById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    public void showAll() {
+        List<Role> roleList = roleRepository.findAll();
+        List<Organization> organizationList = organizationRepository.findAll();
+        List<Department> departmentList = departmentRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAll();
+        List<User> userList = userRepository.findAll();
+        List<EmployeeDto> emp_s = employeeService.findAll();
+        System.out.println("DONE");
     }
 }

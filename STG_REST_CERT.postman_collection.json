@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "7a239c2c-997e-4d18-a98a-c5d4c36c03d2",
+		"name": "STG_REST_CERT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "14199463"
+	},
+	"item": [
+		{
+			"name": "Add First Person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pickupName\":\"Bruce\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/deliveries"
+			},
+			"response": []
+		},
+		{
+			"name": "Add First Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTQ0MzgxOSwiZXhwIjoxNjc1NTMwMjE5fQ.9Ble_W3joNCcCaXtlx6bg7Lwrp4uuNqljDHGOkoc_7pm414a6zjW7Z16ajgRhjm74bJqWwOnMM1ZoViV_PlAEw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"department_id\": 3,\r\n        \"parent_id\": 102,\r\n        \"user_id\": 111\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTM2MTY1OCwiZXhwIjoxNjc1NDQ4MDU4fQ.mxQ87gF8WWVDbR0rlP-cfXrfVRFTTneIBCdxOv3aSZHwcEFoqJlcZEFsZuDzarzqt44NjloFEvJFLeh5bPCQdw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 10,\r\n        \"department_id\": 2,\r\n        \"parent_id\": 102,\r\n        \"user_id\": 111\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Employee Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTM2MTY1OCwiZXhwIjoxNjc1NDQ4MDU4fQ.mxQ87gF8WWVDbR0rlP-cfXrfVRFTTneIBCdxOv3aSZHwcEFoqJlcZEFsZuDzarzqt44NjloFEvJFLeh5bPCQdw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 11,\r\n        \"department_id\": 2,\r\n        \"parent_id\": 999,\r\n        \"user_id\": 111\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTM2MTY1OCwiZXhwIjoxNjc1NDQ4MDU4fQ.mxQ87gF8WWVDbR0rlP-cfXrfVRFTTneIBCdxOv3aSZHwcEFoqJlcZEFsZuDzarzqt44NjloFEvJFLeh5bPCQdw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 11\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/employee"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Many Organization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NDU4MzE1MCwiZXhwIjoxNjc0NjY5NTUwfQ.hq0SsdGaFWXoibKVfXXNPnfGXhInVIBJqpwqhkxJ9vgdgtUUqp6PT0HN-Hetz6Vk83xID1AQ9i6-q03c0b7ueA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n   {\r\n    \"description\":\"CEO\",\r\n    \"org_name\":\"Wayne Enterprises\",\r\n    \"root\":\"0\"\r\n    },\r\n    {\r\n    \"description\":\"Human Resources\",\r\n    \"org_name\":\"HR\",\r\n    \"root\":\"1\"\r\n    },\r\n    {\r\n    \"description\":\"Development\",\r\n    \"org_name\":\"Development\",\r\n    \"root\":\"1\"\r\n    },\r\n        {\r\n    \"description\":\"Management\",\r\n    \"org_name\":\"Management\",\r\n    \"root\":\"1\"\r\n    }\r\n\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/org/many"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Authority",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NDQ5MzUzNiwiZXhwIjoxNjc0NTc5OTM2fQ.gLxpp16dnyq9si8xHJOYkhwZAp4QJ559x52q-j1BvoyDwwJweNL2U2p4t4dW6tKM_L2xfUudXaDqkRBF1IHtwg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"authority\":\"description\",\r\n    \"user_id\":\"1\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/authority"
+			},
+			"response": []
+		},
+		{
+			"name": "Add First Department",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NDQ5MzUzNiwiZXhwIjoxNjc0NTc5OTM2fQ.gLxpp16dnyq9si8xHJOYkhwZAp4QJ559x52q-j1BvoyDwwJweNL2U2p4t4dW6tKM_L2xfUudXaDqkRBF1IHtwg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"department_name\":\"HR\",\r\n     \"description\":\"Management\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/department"
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Bruce\",\r\n    \"email\":\"A@B.com\",\r\n    \"password\":\"12345678\",\r\n    \"role\":[\"mod\",\"user\"]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Bruce\",\r\n    \"password\":\"12345678\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployees",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTQ0MzgxOSwiZXhwIjoxNjc1NTMwMjE5fQ.9Ble_W3joNCcCaXtlx6bg7Lwrp4uuNqljDHGOkoc_7pm414a6zjW7Z16ajgRhjm74bJqWwOnMM1ZoViV_PlAEw",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/employee"
+			},
+			"response": []
+		},
+		{
+			"name": "public",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/test/all"
+			},
+			"response": []
+		},
+		{
+			"name": "Access Protected resource",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/test/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Access Protected resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NDY4NzgxNywiZXhwIjoxNjc0Nzc0MjE3fQ.TW3niN4ApHmBLHUcI1_M8MqCkVO3wglXSCi66jKHGWnxF2DVvrcsG8T_JuH2_UyiuuyWShhnI5xbo3nhiczcjw",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Access MOD resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJCcnVjZSIsImlhdCI6MTY3NTM2MTY1OCwiZXhwIjoxNjc1NDQ4MDU4fQ.mxQ87gF8WWVDbR0rlP-cfXrfVRFTTneIBCdxOv3aSZHwcEFoqJlcZEFsZuDzarzqt44NjloFEvJFLeh5bPCQdw",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/mod"
+			},
+			"response": []
+		},
+		{
+			"name": "Access ADMIN resource With Header Change",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTQU0iLCJpYXQiOjE2NzQxNjMxNDUsImV4cCI6MTY3NDI0OTU0NX0.9ezS8aypkA14zaKSKz2sdIvkzAiLMWNbwFSKQGQjGYD9ZkNjK6N9li6BpdI0OAoIE9Xp7-tsAjEj0Hx5sRovDw",
+						"description": "Change this from signin",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8080/api/test/admin"
+			},
+			"response": []
+		}
+	]
+}
