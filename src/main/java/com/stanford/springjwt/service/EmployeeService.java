@@ -1,6 +1,6 @@
 package com.stanford.springjwt.service;
 
-// DONE
+
 
 import com.stanford.springjwt.dto.EmployeeDto;
 import com.stanford.springjwt.models.Employee;
@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Slf4j
 @Service
@@ -22,12 +19,11 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
-    public List<EmployeeDto> findAll(){
+    public List<EmployeeDto> findAll() {
         log.info("EmployeeService: findAll");
         List<Employee> repo = employeeRepository.findAll();
         List<EmployeeDto> employeeDtos = new ArrayList<>();
-        for (Employee employee:repo){
+        for (Employee employee : repo) {
             EmployeeDto employeeDto = new EmployeeDto();
             employeeDto.setId(employee.getId());
             employeeDto.setParent_id(employee.getParent_id());
@@ -40,7 +36,7 @@ public class EmployeeService {
     }
 
 
-    public EmployeeDto findById(Long id){
+    public EmployeeDto findById(Long id) {
         log.info("EmployeeService: findById");
         Employee employee = employeeRepository.findById(id).orElse(null);
         EmployeeDto employeeDto = new EmployeeDto();
@@ -53,30 +49,23 @@ public class EmployeeService {
     }
 
 
-    public Employee saveUpdateDelete(EmployeeDto employeeDto){
+    public Employee saveUpdateDelete(EmployeeDto employeeDto) {
         log.info("EmployeeService: saveUpdateDelete, {}", employeeDto.getUser_id());
+        if (employeeDto.getParent_id() == 999) {
+            Long id = employeeDto.getId();
+            List<Long> getThis = new ArrayList<>();
+            getThis.add(id);
+            List<Employee> byId = employeeRepository.findAllById(getThis);
+            Employee employeeDelete = byId.get(0);
+            employeeRepository.delete(employeeDelete);
+            List<Employee> all = employeeRepository.findAll();
+            return employeeDelete;
+        }
         Employee employee = new Employee();
         employee.setUpdated(new Timestamp(System.currentTimeMillis()));
         employee.setDepartment_id(employeeDto.getDepartment_id());
         employee.setUser_id(employeeDto.getUser_id());
         employee.setParent_id(employeeDto.getParent_id());
-
-        if(employee.getParent_id() == 999) {
-            Long id = (long) employeeDto.getId();
-
-            List<Long> getThis = new ArrayList<>();
-            getThis.add(id);
-            List<Employee> byId = employeeRepository.findAllById(getThis);
-
-            Employee employeeDelete = byId.get(0);
-//            employee.setDepartment_id(employeeDto.getDepartment_id());
-//            employee.setUser_id(byId.getUser_id());
-//            employee.setParent_id(byId.getParent_id());
-            employeeRepository.delete(employeeDelete);
-            List<Employee> all = employeeRepository.findAll();
-            return employee;
-        }
-
         return employeeRepository.save(employee);
     }
 }

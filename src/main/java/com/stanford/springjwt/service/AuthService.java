@@ -1,5 +1,5 @@
 package com.stanford.springjwt.service;
-// DONE
+
 
 import com.stanford.springjwt.models.*;
 import com.stanford.springjwt.payload.request.SignupRequest;
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//
 
 @Slf4j
 @Service
@@ -52,7 +51,7 @@ public class AuthService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public JwtResponse authenticateUserService( String username, String userPassword){
+    public JwtResponse authenticateUserService(String username, String userPassword) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, userPassword));
@@ -79,7 +78,7 @@ public class AuthService {
 
         boolean setDatabase = false;
         List<Role> all = roleRepository.findAll();
-        if(all.isEmpty()) {
+        if (all.isEmpty()) {
             setupH2Database();
             setDatabase = true;
         }
@@ -132,12 +131,13 @@ public class AuthService {
 
         user.setRoles(roles);
         userRepository.save(user);
-        if(setDatabase) {
+        if (setDatabase) {
             setupUserH2Database();
         }
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
     public void setupH2Database() {
 
         // ROLES
@@ -214,7 +214,6 @@ public class AuthService {
         employeeRepository.save(Employee1);
 
 
-
         // Validate
 
         List<Role> roleList = roleRepository.findAll();
@@ -225,12 +224,13 @@ public class AuthService {
 
         System.out.println("DATABASE SUCCESS");
     }
+
     public void setupUserH2Database() {
         Set<Role> roles = new HashSet<>();
 
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
 
         // USER
         User user1 = new User();
@@ -354,7 +354,6 @@ public class AuthService {
         Employee8.setDepartment_id(3);
         Employee8.setParent_id(102);
         employeeRepository.save(Employee8);
-
 
 
         List<User> userList = userRepository.findAll();
