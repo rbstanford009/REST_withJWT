@@ -3,8 +3,14 @@ package com.stanford.springjwt.service;
 
 
 import com.stanford.springjwt.dto.EmployeeDto;
+import com.stanford.springjwt.dto.OrgChartDto;
+import com.stanford.springjwt.dto.UsersDto;
 import com.stanford.springjwt.models.Employee;
+import com.stanford.springjwt.models.User;
+import com.stanford.springjwt.models.UsersProfile;
 import com.stanford.springjwt.repository.EmployeeRepository;
+import com.stanford.springjwt.repository.UserRepository;
+import com.stanford.springjwt.repository.UsersProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +24,12 @@ import java.util.List;
 public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UsersProfileRepository usersRepository;
 
     public List<EmployeeDto> findAll() {
         log.info("EmployeeService: findAll");
@@ -33,6 +45,80 @@ public class EmployeeService {
             employeeDtos.add(employeeDto);
         }
         return employeeDtos;
+    }
+
+    public List<OrgChartDto> findAllChildren(Long id) {
+        log.info("EmployeeService: findAllChildren");
+        List<Employee> repo = employeeRepository.findAll();
+        List<User> userRepositoryAll = userRepository.findAll();
+        List<OrgChartDto> orgChartDto = new ArrayList<>();
+        for (Employee employee : repo) {
+            if(employee.getId() == id) {
+                OrgChartDto orgChartDto1 = new OrgChartDto();
+                User userData = getUserData(userRepositoryAll, employee.getUser_id());
+                orgChartDto1.setId(employee.getId());
+                orgChartDto1.setUserName(userData.getUsername());
+                orgChartDto1.setRankBranches(getChildren(repo,userRepositoryAll,employee.getParent_id()));
+                orgChartDto.add(orgChartDto1);
+            }
+        }
+        return orgChartDto;
+    }
+    public List<OrgChartDto> getChildren(List<Employee> orgData, List<User> usersies, int id ) {
+        List<OrgChartDto> orgChartDto = new ArrayList<>();
+        boolean findMore = true;
+        while(findMore) {
+            List<Employee> employeeList = getEmployeeList(orgData, id);
+            for (Employee employee : employeeList) {
+                if(employee.getUser_id() != 1) {
+                    OrgChartDto orgChartDto1 = new OrgChartDto();
+                    User userData = getUserData(usersies, employee.getId().intValue());   // RBS HERE
+                    orgChartDto1.setId(employee.getId());
+                    orgChartDto1.setUserName(userData.getUsername());
+                    orgChartDto1.setRankBranches(getChildren(orgData,usersies,employee.getParent_id()));
+
+                    orgChartDto.add(orgChartDto1);
+                }
+
+            }
+            findMore = false;
+        }
+
+
+        return orgChartDto;
+
+
+    }
+    public  List<Employee>  getEmployeeList(List<Employee> orgData, int id) {
+        List<Employee> returnEmployee = new ArrayList<>();
+        for (Employee employee : orgData) {
+            if(employee.getParent_id() == id) {
+                returnEmployee.add(employee);
+            }
+        }
+
+        return returnEmployee;
+    }
+
+    public Employee getEmployeeById(List<Employee> repo, Long id) {
+        for (Employee employee : repo) {
+            if(employee.getId() == id) {
+                return employee;
+            }
+
+        }
+
+            return null;
+    }
+
+    public User getUserData(List<User> users, int id ) {
+        for(User user: users) {
+            if(user.getId() == id) {
+                return user;
+            }
+        }
+
+        return null;
     }
 
 

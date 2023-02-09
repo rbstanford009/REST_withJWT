@@ -2,6 +2,7 @@ package com.stanford.springjwt.controllers;
 
 
 import com.stanford.springjwt.dto.EmployeeDto;
+import com.stanford.springjwt.dto.OrgChartDto;
 import com.stanford.springjwt.models.*;
 import com.stanford.springjwt.repository.*;
 import com.stanford.springjwt.service.EmployeeService;
@@ -52,6 +53,13 @@ public class EmployeeController {
         log.info("EmployeeController: getEmployee");
         EmployeeDto employee = employeeService.findById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/tree/{id}")
+    public ResponseEntity<List<OrgChartDto>>  getEmployeeChildren(@PathVariable Long id) {
+        log.info("EmployeeController: getEmployeeChildren");
+        List<OrgChartDto> emp_t  = employeeService.findAllChildren(id);
+        return new ResponseEntity<>(emp_t, HttpStatus.OK);
     }
 
     public void showAll() {
