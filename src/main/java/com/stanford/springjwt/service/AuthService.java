@@ -234,20 +234,14 @@ public class AuthService {
         Employee0.setParent_id(-1);
         employeeRepository.save(Employee0);
 
-//        User user0 = new User();
-//        user0.setId(1l);
-//        user0.setEmail("Bruce@b.com");
-//        user0.setPassword("12345678");
-//        user0.setUsername("BruceWayne");
-//        user0.setRoles(roles);
-//        userRepository.save(user0);
+
 
         // USER
         User user1 = new User();
         user1.setId(101l);
         user1.setEmail("user1@b.com");
         user1.setPassword("pass");
-        user1.setUsername("user1");
+        user1.setUsername("user1 A");
         user1.setRoles(roles);
         userRepository.save(user1);
 
@@ -263,7 +257,7 @@ public class AuthService {
         user2.setId(102l);
         user2.setEmail("user2@b.com");
         user2.setPassword("pass");
-        user2.setUsername("user2");
+        user2.setUsername("user2 B");
         user2.setRoles(roles);
         userRepository.save(user2);
 
@@ -280,7 +274,7 @@ public class AuthService {
         user3.setId(103l);
         user3.setEmail("user3@b.com");
         user3.setPassword("pass");
-        user3.setUsername("user3");
+        user3.setUsername("user3 C");
         user3.setRoles(roles);
         userRepository.save(user3);
 
@@ -297,7 +291,7 @@ public class AuthService {
         user4.setId(104l);
         user4.setEmail("user4@b.com");
         user4.setPassword("pass");
-        user4.setUsername("user4");
+        user4.setUsername("user4 D");
         user4.setRoles(roles);
         userRepository.save(user4);
         Employee Employee4 = new Employee();
@@ -312,7 +306,7 @@ public class AuthService {
         user5.setId(105l);
         user5.setEmail("user5@b.com");
         user5.setPassword("pass");
-        user5.setUsername("user5");
+        user5.setUsername("user5 F");
         user5.setRoles(roles);
         userRepository.save(user5);
         Employee Employee5 = new Employee();
@@ -327,7 +321,7 @@ public class AuthService {
         user6.setId(106l);
         user6.setEmail("user6@b.com");
         user6.setPassword("pass");
-        user6.setUsername("user6");
+        user6.setUsername("user6 G");
         user6.setRoles(roles);
         userRepository.save(user6);
         Employee Employee6 = new Employee();
@@ -341,7 +335,7 @@ public class AuthService {
         user7.setId(107l);
         user7.setEmail("user7@b.com");
         user7.setPassword("pass");
-        user7.setUsername("user7");
+        user7.setUsername("user7 H");
         user7.setRoles(roles);
         userRepository.save(user7);
         Employee Employee7 = new Employee();
@@ -355,7 +349,7 @@ public class AuthService {
         user8.setId(108l);
         user8.setEmail("user8@b.com");
         user8.setPassword("pass");
-        user8.setUsername("user8");
+        user8.setUsername("user8 I");
         user8.setRoles(roles);
         userRepository.save(user8);
         Employee Employee8 = new Employee();

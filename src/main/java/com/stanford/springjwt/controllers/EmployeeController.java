@@ -57,9 +57,9 @@ public class EmployeeController {
     }
 
     @PostMapping(path = "/sort")
-    public ResponseEntity<List<EmployeeDto>>  getSortedEmployee(@RequestBody SortDto sortDto) {
+    public ResponseEntity<List<String>>  getSortedEmployee(@RequestBody SortDto sortDto) {
         log.info("EmployeeController: getSortedEmployee");
-        List<EmployeeDto> emp_s = employeeService.employeeSort(sortDto);
+        List<String> emp_s = employeeService.employeeSort(sortDto);
         return new ResponseEntity<>(emp_s, HttpStatus.OK);
     }
 

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -142,20 +144,23 @@ public class EmployeeService {
         return employeeDto;
     }
 
-    public List<EmployeeDto>  employeeSort(SortDto sortDto) {
+    public List<String>  employeeSort(SortDto sortDto) {
         log.info("EmployeeService: employeeSort");
         List<Employee> repo = employeeRepository.findAll();
-        List<EmployeeDto> employeeDtos = new ArrayList<>();
-        for (Employee employee : repo) {
-            EmployeeDto employeeDto = new EmployeeDto();
-            employeeDto.setId(employee.getId());
-            employeeDto.setParent_id(employee.getParent_id());
-            employeeDto.setDepartment_id(employee.getDepartment_id());
-            employeeDto.setUpdated(new Timestamp(System.currentTimeMillis()));
-            employeeDto.setUser_id(employee.getUser_id());
-            employeeDtos.add(employeeDto);
+        List<User> userRepositoryAll = userRepository.findAll();
+        List<String> lastName = new ArrayList<>();
+        for (User user : userRepositoryAll) {
+
+            String userLastName = user.getUsername();
+            lastName.add(userLastName);
         }
-        return employeeDtos;
+        if(sortDto.getSort().equals("ASC")) {
+           Collections.sort(lastName);
+        } else {
+            lastName.sort(Collections.reverseOrder());
+        }
+
+        return lastName;
     }
 
 //
@@ -182,10 +187,5 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public int cvt(Long value) {
-        int returnInt = 0;
-        value.intValue();
 
-        return returnInt;
-    }
 }
