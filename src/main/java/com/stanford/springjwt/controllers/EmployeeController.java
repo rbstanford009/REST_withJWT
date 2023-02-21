@@ -3,6 +3,7 @@ package com.stanford.springjwt.controllers;
 
 import com.stanford.springjwt.dto.EmployeeDto;
 import com.stanford.springjwt.dto.OrgChartDto;
+import com.stanford.springjwt.dto.SortDto;
 import com.stanford.springjwt.models.*;
 import com.stanford.springjwt.repository.*;
 import com.stanford.springjwt.service.EmployeeService;
@@ -55,12 +56,21 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/sort")
+    public ResponseEntity<List<EmployeeDto>>  getSortedEmployee(@RequestBody SortDto sortDto) {
+        log.info("EmployeeController: getSortedEmployee");
+        List<EmployeeDto> emp_s = employeeService.employeeSort(sortDto);
+        return new ResponseEntity<>(emp_s, HttpStatus.OK);
+    }
+
     @GetMapping(path = "/tree/{id}")
     public ResponseEntity<List<OrgChartDto>>  getEmployeeChildren(@PathVariable Long id) {
         log.info("EmployeeController: getEmployeeChildren");
         List<OrgChartDto> emp_t  = employeeService.findAllChildren();
         return new ResponseEntity<>(emp_t, HttpStatus.OK);
     }
+
+
 
     public void showAll() {
         List<Role> roleList = roleRepository.findAll();

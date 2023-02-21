@@ -3,6 +3,7 @@ package com.stanford.springjwt.service;
 
 import com.stanford.springjwt.dto.EmployeeDto;
 import com.stanford.springjwt.dto.OrgChartDto;
+import com.stanford.springjwt.dto.SortDto;
 import com.stanford.springjwt.models.Employee;
 import com.stanford.springjwt.models.User;
 import com.stanford.springjwt.repository.EmployeeRepository;
@@ -141,6 +142,25 @@ public class EmployeeService {
         return employeeDto;
     }
 
+    public List<EmployeeDto>  employeeSort(SortDto sortDto) {
+        log.info("EmployeeService: employeeSort");
+        List<Employee> repo = employeeRepository.findAll();
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+        for (Employee employee : repo) {
+            EmployeeDto employeeDto = new EmployeeDto();
+            employeeDto.setId(employee.getId());
+            employeeDto.setParent_id(employee.getParent_id());
+            employeeDto.setDepartment_id(employee.getDepartment_id());
+            employeeDto.setUpdated(new Timestamp(System.currentTimeMillis()));
+            employeeDto.setUser_id(employee.getUser_id());
+            employeeDtos.add(employeeDto);
+        }
+        return employeeDtos;
+    }
+
+//
+
+    //
 
     public Employee saveUpdateDelete(EmployeeDto employeeDto) {
         log.info("EmployeeService: saveUpdateDelete, {}", employeeDto.getUser_id());
