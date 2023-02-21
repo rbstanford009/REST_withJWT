@@ -1,13 +1,10 @@
 package com.stanford.springjwt.service;
 
 
-
 import com.stanford.springjwt.dto.EmployeeDto;
 import com.stanford.springjwt.dto.OrgChartDto;
-import com.stanford.springjwt.dto.UsersDto;
 import com.stanford.springjwt.models.Employee;
 import com.stanford.springjwt.models.User;
-import com.stanford.springjwt.models.UsersProfile;
 import com.stanford.springjwt.repository.EmployeeRepository;
 import com.stanford.springjwt.repository.UserRepository;
 import com.stanford.springjwt.repository.UsersProfileRepository;
@@ -47,39 +44,58 @@ public class EmployeeService {
         return employeeDtos;
     }
 
-    public List<OrgChartDto> findAllChildren(Long id) {
+    public List<OrgChartDto> findAllChildren() {
         log.info("EmployeeService: findAllChildren");
-        List<Employee> repo = employeeRepository.findAll();
+        List<Employee> employeeRepositoryAll = employeeRepository.findAll();
         List<User> userRepositoryAll = userRepository.findAll();
+        int ceo = getLevelFromTop(employeeRepositoryAll);
         List<OrgChartDto> orgChartDto = new ArrayList<>();
-        for (Employee employee : repo) {
-            if(employee.getId() == id) {
+        for (Employee employee : employeeRepositoryAll) {
+            if (employee.getId() == ceo) {
                 OrgChartDto orgChartDto1 = new OrgChartDto();
-                User userData = getUserData(userRepositoryAll, employee.getUser_id());
+                User userData = getUserData(userRepositoryAll, ceo);
                 orgChartDto1.setId(employee.getId());
                 orgChartDto1.setUserName(userData.getUsername());
-                orgChartDto1.setRankBranches(getChildren(repo,userRepositoryAll,employee.getParent_id()));
+                orgChartDto1.setRankBranches(getAllEmployeesThatReportToParent(employeeRepositoryAll, userRepositoryAll, ceo));
                 orgChartDto.add(orgChartDto1);
             }
         }
         return orgChartDto;
     }
-    public List<OrgChartDto> getChildren(List<Employee> orgData, List<User> usersies, int id ) {
+
+
+    public int getLevelFromTop(List<Employee> orgData) {
+
+        int top = -1;
+        for (Employee employee : orgData) {
+            if (employee.getParent_id() < 1) {
+                top = employee.getUser_id();
+            }
+        }
+        return top;
+
+
+    }
+
+    public List<OrgChartDto> getAllEmployeesThatReportToParent(List<Employee> orgData, List<User> usersies, int id) {
         List<OrgChartDto> orgChartDto = new ArrayList<>();
         boolean findMore = true;
-        while(findMore) {
-            List<Employee> employeeList = getEmployeeList(orgData, id);
+        while (findMore) {
+            List<Employee> employeeList = getEmployeeListByParentId(orgData, id);
             for (Employee employee : employeeList) {
-                if(employee.getUser_id() != 1) {
-                    OrgChartDto orgChartDto1 = new OrgChartDto();
-                    User userData = getUserData(usersies, employee.getId().intValue());   // RBS HERE
-                    orgChartDto1.setId(employee.getId());
-                    orgChartDto1.setUserName(userData.getUsername());
-                    orgChartDto1.setRankBranches(getChildren(orgData,usersies,employee.getParent_id()));
-
-                    orgChartDto.add(orgChartDto1);
+                OrgChartDto orgChartDto1 = new OrgChartDto();
+                User userData = getUserData(usersies, employee.getId().intValue());
+                orgChartDto1.setId(employee.getId());
+                orgChartDto1.setUserName(userData.getUsername());
+                orgChartDto1.setManagerId(id);
+                List<Employee> employeeListCheck = getEmployeeListByParentId(orgData, employee.getUser_id());
+                if (employeeListCheck != null && employeeListCheck.size() > 0) {
+                    orgChartDto1.setRankBranches(getAllEmployeesThatReportToParent(orgData, usersies, employee.getUser_id()));
+                } else {
+                    orgChartDto1.setRankBranches(null);
                 }
 
+                orgChartDto.add(orgChartDto1);
             }
             findMore = false;
         }
@@ -89,10 +105,11 @@ public class EmployeeService {
 
 
     }
-    public  List<Employee>  getEmployeeList(List<Employee> orgData, int id) {
+
+    public List<Employee> getEmployeeListByParentId(List<Employee> orgData, int id) {
         List<Employee> returnEmployee = new ArrayList<>();
         for (Employee employee : orgData) {
-            if(employee.getParent_id() == id) {
+            if (employee.getParent_id() == id) {
                 returnEmployee.add(employee);
             }
         }
@@ -100,20 +117,10 @@ public class EmployeeService {
         return returnEmployee;
     }
 
-    public Employee getEmployeeById(List<Employee> repo, Long id) {
-        for (Employee employee : repo) {
-            if(employee.getId() == id) {
-                return employee;
-            }
 
-        }
-
-            return null;
-    }
-
-    public User getUserData(List<User> users, int id ) {
-        for(User user: users) {
-            if(user.getId() == id) {
+    public User getUserData(List<User> users, int id) {
+        for (User user : users) {
+            if (user.getId().intValue() == id) {
                 return user;
             }
         }
@@ -153,5 +160,12 @@ public class EmployeeService {
         employee.setUser_id(employeeDto.getUser_id());
         employee.setParent_id(employeeDto.getParent_id());
         return employeeRepository.save(employee);
+    }
+
+    public int cvt(Long value) {
+        int returnInt = 0;
+        value.intValue();
+
+        return returnInt;
     }
 }

@@ -58,7 +58,7 @@ public class EmployeeController {
     @GetMapping(path = "/tree/{id}")
     public ResponseEntity<List<OrgChartDto>>  getEmployeeChildren(@PathVariable Long id) {
         log.info("EmployeeController: getEmployeeChildren");
-        List<OrgChartDto> emp_t  = employeeService.findAllChildren(id);
+        List<OrgChartDto> emp_t  = employeeService.findAllChildren();
         return new ResponseEntity<>(emp_t, HttpStatus.OK);
     }
 

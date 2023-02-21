@@ -205,13 +205,7 @@ public class AuthService {
         departmentRepository.save(dept4);
 
 
-        // Employee
-        Employee Employee1 = new Employee();  //Bruce Wayne
-        Employee1.setId(1l);
-        Employee1.setUser_id(1);
-        Employee1.setDepartment_id(1);
-        Employee1.setParent_id(1);
-        employeeRepository.save(Employee1);
+
 
 
         // Validate
@@ -231,6 +225,22 @@ public class AuthService {
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
+
+        // Employee
+        Employee Employee0 = new Employee();  //Bruce Wayne
+        Employee0.setId(1l);
+        Employee0.setUser_id(1);
+        Employee0.setDepartment_id(1);
+        Employee0.setParent_id(-1);
+        employeeRepository.save(Employee0);
+
+//        User user0 = new User();
+//        user0.setId(1l);
+//        user0.setEmail("Bruce@b.com");
+//        user0.setPassword("12345678");
+//        user0.setUsername("BruceWayne");
+//        user0.setRoles(roles);
+//        userRepository.save(user0);
 
         // USER
         User user1 = new User();
