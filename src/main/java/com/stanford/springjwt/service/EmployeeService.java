@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,7 +147,8 @@ public class EmployeeService {
 
     public List<String>  employeeSort(SortDto sortDto) {
         log.info("EmployeeService: employeeSort");
-        List<Employee> repo = employeeRepository.findAll();
+        int pageSize = stringToInt(sortDto.getPagesize());
+        int pageStart = stringToInt(sortDto.getPagestart());
         List<User> userRepositoryAll = userRepository.findAll();
         List<String> lastName = new ArrayList<>();
         for (User user : userRepositoryAll) {
@@ -159,6 +161,29 @@ public class EmployeeService {
         } else {
             lastName.sort(Collections.reverseOrder());
         }
+        List<String> lastNameResult = new ArrayList<>();
+        boolean pageOn = false;
+        int pageCount = 0;
+        int lineCount =0;
+        for(String result : lastName) {
+
+                lineCount++;
+                if(lineCount >= pageSize) {
+                    lineCount =0;
+                    if(pageOn) {
+                        return lastNameResult;
+                    }
+                    pageCount ++;
+                    if(pageCount == pageStart) {
+                        pageOn=true;
+                    }
+                }
+                if(pageOn) {
+                    lastNameResult.add(result);
+                }
+
+        }
+
 
         return lastName;
     }
@@ -187,5 +212,13 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
+    public int stringToInt(String s) {
+        try {
+            Integer i = Integer.valueOf(s);
+            return i.intValue();
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 
 }
