@@ -1,8 +1,11 @@
 package com.stanford.springjwt.service;
 
 import com.stanford.springjwt.dto.EmployeeDto;
+import com.stanford.springjwt.dto.SortDto;
 import com.stanford.springjwt.models.Employee;
+import com.stanford.springjwt.models.User;
 import com.stanford.springjwt.repository.EmployeeRepository;
+import com.stanford.springjwt.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +32,10 @@ class EmployeeServiceTest {
     EmployeeService employeeService;
     @Mock
     EmployeeRepository employeeRepository;
+
+    @Mock
+    UserRepository userRepository;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -156,6 +163,48 @@ class EmployeeServiceTest {
 
         int test = employeeService.stringToInt("9");
         assertEquals(9, test);
-        System.out.println("");
+
+    }
+
+    @Test
+    void employeeSortASCTest() {
+        List<User> users =  getUsers();
+        when(userRepository.findAll()).thenReturn(users);
+
+        SortDto sortDto = new SortDto();
+        sortDto.setSort("ASC");
+        sortDto.setPagesize("1");
+        sortDto.setPagestart("1");
+
+        List<String> all = employeeService.employeeSort(sortDto);
+        assertEquals(1, all.size());
+
+
+    }
+
+    @Test
+    void employeeSortNonASCTest() {
+        List<User> users =  getUsers();
+        when(userRepository.findAll()).thenReturn(users);
+
+        SortDto sortDto = new SortDto();
+        sortDto.setSort("NOASC");
+        sortDto.setPagesize("1");
+        sortDto.setPagestart("1");
+
+        List<String> all = employeeService.employeeSort(sortDto);
+        assertEquals(1, all.size());
+
+    }
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+        for(int i =0; i < 20; i++) {
+            User ua = new User();
+            ua.setId((long) i);
+            ua.setUsername("b"+i);
+            ua.setEmail("a"+i+"@b.com");
+            users.add(ua);
+        }
+        return users;
     }
 }
