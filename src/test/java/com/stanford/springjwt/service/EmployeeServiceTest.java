@@ -1,6 +1,7 @@
 package com.stanford.springjwt.service;
 
 import com.stanford.springjwt.dto.EmployeeDto;
+import com.stanford.springjwt.dto.OrgChartDto;
 import com.stanford.springjwt.dto.SortDto;
 import com.stanford.springjwt.models.*;
 import com.stanford.springjwt.repository.EmployeeRepository;
@@ -125,10 +126,20 @@ class EmployeeServiceTest {
 
     @Test
     void findAllChildren() {
+        setupData();
+        when(employeeRepository.findAll()).thenReturn(employeeList);
+        when(userRepository.findAll()).thenReturn(userList);
+        List<OrgChartDto> all = employeeService.findAllChildren() ;
+        assertEquals(3, all.size());
+        System.out.println("");
     }
 
     @Test
     void getLevelFromTop() {
+        setupData();
+        int i = employeeService.getLevelFromTop(employeeList);
+        assertEquals(1, i);
+        System.out.println("");
     }
 
     @Test
@@ -141,23 +152,37 @@ class EmployeeServiceTest {
 
     @Test
     void getEmployeeListByParentId() {
+        setupData();
+        List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
+        assertEquals(3, all.size());
+        System.out.println("");
     }
 
     @Test
     void getUserData() {
+        setupData();
+        List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
+        assertEquals(3, all.size());
+        System.out.println("");
     }
 
     @Test
     void testFindById() {
+        setupData();
+        List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
+        assertEquals(3, all.size());
+        System.out.println("");
     }
 
     @Test
     void employeeSort() {
+        setupData();
+        List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
+        assertEquals(3, all.size());
+        System.out.println("");
     }
 
-    @Test
-    void saveUpdateDelete() {
-    }
+
     @Test
     void stringToIntFail() {
 
@@ -312,17 +337,22 @@ class EmployeeServiceTest {
         Employee0.setParent_id(-1);
         employeeList.add(Employee0);
 
-
-
         // USER
+        User user0 = new User();
+        user0.setId(1l);
+        user0.setEmail("bruce@b.com");
+        user0.setPassword("pass");
+        user0.setUsername("Bruce");
+        user0.setRoles(roles);
+        userList.add(user0);
+
         User user1 = new User();
         user1.setId(101l);
         user1.setEmail("user1@b.com");
         user1.setPassword("pass");
         user1.setUsername("user1 A");
         user1.setRoles(roles);
-        userList.add(user1);
-
+        userRepository.save(user1);
         // Employee Manager of HR
         Employee Employee1 = new Employee();
         Employee1.setId(101l);
