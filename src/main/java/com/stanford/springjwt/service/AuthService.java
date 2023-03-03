@@ -210,11 +210,11 @@ public class AuthService {
 
         // Validate
 
-        List<Role> roleList = roleRepository.findAll();
-        List<Organization> organizationList = organizationRepository.findAll();
-        List<Department> departmentList = departmentRepository.findAll();
-        List<Employee> employeeList = employeeRepository.findAll();
-        List<User> userList = userRepository.findAll();
+//        List<Role> roleList = roleRepository.findAll();
+//        List<Organization> organizationList = organizationRepository.findAll();
+//        List<Department> departmentList = departmentRepository.findAll();
+//        List<Employee> employeeList = employeeRepository.findAll();
+//        List<User> userList = userRepository.findAll();
 
         System.out.println("DATABASE SUCCESS");
     }
@@ -360,8 +360,8 @@ public class AuthService {
         employeeRepository.save(Employee8);
 
 
-        List<User> userList = userRepository.findAll();
-        List<Employee> employeeList = employeeRepository.findAll();
+//        List<User> userList = userRepository.findAll();
+//        List<Employee> employeeList = employeeRepository.findAll();
         System.out.println("DATABASE USERS ADDED SUCCESS");
     }
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -61,6 +62,19 @@ class UsersServiceTest {
 
     @Test
     void saveOrUpdate() {
+        Long id = 1L;
+        UsersProfile one = new UsersProfile();
+        one.setLast_name("last");
+        one.setId(id);
+        when(usersRepository.save(Mockito.any())).thenReturn(one);
+        UsersDto usersDto = new UsersDto();
+        usersDto.setId(1l);
+        usersDto.setPassword("pass");
+        usersDto.setUsername("Uname");
+        usersDto.setFirst_name("First");
+        usersDto.setLast_name("Last");
+        UsersProfile all = usersService.saveOrUpdate(usersDto);
+        assertEquals("last", all.getLast_name());
     }
 
 
