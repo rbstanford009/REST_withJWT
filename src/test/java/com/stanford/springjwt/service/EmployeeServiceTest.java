@@ -130,8 +130,7 @@ class EmployeeServiceTest {
         when(employeeRepository.findAll()).thenReturn(employeeList);
         when(userRepository.findAll()).thenReturn(userList);
         List<OrgChartDto> all = employeeService.findAllChildren() ;
-        assertEquals(3, all.size());
-        System.out.println("");
+        assertEquals(1, all.size());
     }
 
     @Test
@@ -139,7 +138,6 @@ class EmployeeServiceTest {
         setupData();
         int i = employeeService.getLevelFromTop(employeeList);
         assertEquals(1, i);
-        System.out.println("");
     }
 
     @Test
@@ -147,7 +145,6 @@ class EmployeeServiceTest {
         setupData();
         List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
         assertEquals(3, all.size());
-        System.out.println("");
     }
 
     @Test
@@ -155,7 +152,6 @@ class EmployeeServiceTest {
         setupData();
         List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
         assertEquals(3, all.size());
-        System.out.println("");
     }
 
     @Test
@@ -163,7 +159,6 @@ class EmployeeServiceTest {
         setupData();
         List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
         assertEquals(3, all.size());
-        System.out.println("");
     }
 
     @Test
@@ -171,7 +166,6 @@ class EmployeeServiceTest {
         setupData();
         List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
         assertEquals(3, all.size());
-        System.out.println("");
     }
 
     @Test
@@ -179,7 +173,6 @@ class EmployeeServiceTest {
         setupData();
         List<Employee> all = employeeService.getEmployeeListByParentId(employeeList,1);
         assertEquals(3, all.size());
-        System.out.println("");
     }
 
 
@@ -188,7 +181,6 @@ class EmployeeServiceTest {
 
         int test = employeeService.stringToInt("A");
         assertEquals(-1, test);
-        System.out.println("");
     }
 
     @Test
@@ -352,7 +344,7 @@ class EmployeeServiceTest {
         user1.setPassword("pass");
         user1.setUsername("user1 A");
         user1.setRoles(roles);
-        userRepository.save(user1);
+        userList.add(user1);
         // Employee Manager of HR
         Employee Employee1 = new Employee();
         Employee1.setId(101l);

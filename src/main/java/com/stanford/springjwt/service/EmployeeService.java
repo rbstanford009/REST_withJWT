@@ -90,7 +90,11 @@ public class EmployeeService {
                 OrgChartDto orgChartDto1 = new OrgChartDto();
                 User userData = getUserData(usersies, employee.getId().intValue());
                 orgChartDto1.setId(employee.getId());
-                orgChartDto1.setUserName(userData.getUsername());
+                if(userData != null) {
+                    orgChartDto1.setUserName(userData.getUsername());
+                } else {
+                    orgChartDto1.setUserName("");
+                }
                 orgChartDto1.setManagerId(id);
                 List<Employee> employeeListCheck = getEmployeeListByParentId(orgData, employee.getUser_id());
                 if (employeeListCheck != null && employeeListCheck.size() > 0) {
