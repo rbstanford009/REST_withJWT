@@ -90,28 +90,26 @@ class EmployeeServiceTest {
         System.out.println("");
     }
 
-//    @Test
-//    void saveOrUpdateDelete999() {
-//        List<Employee> repo = new ArrayList<>();
-//        Employee one = new Employee();
-//        one.setUser_id(1);
-//        repo.add(one);
-//        List<Long> getThis = new ArrayList<>();
-//        getThis.add(1l);
-//        EmployeeDto employeeDto = new EmployeeDto();
-//        employeeDto.setParent_id(999);
-//        employeeDto.setUser_id(1);
-//        employeeDto.setUser_id(1);
-//        employeeDto.setId(1l);
-//        System.out.println("");
-//        when(employeeRepository.findAllById(Mockito.any(List.class))).thenReturn(repo);
-//        when(employeeRepository.findAll()).thenReturn(repo);
-//        when(employeeRepository.delete(Mockito.any(Employee.class)));
-//        when(employeeRepository.delete(one)).;
-//        Employee employeeResult = employeeService.saveUpdateDelete(employeeDto);
-//        assertEquals(1, employeeResult.getUser_id());
-//        System.out.println("");
-//    }
+    @Test
+    void saveOrUpdateDelete999() {
+        List<Employee> repo = new ArrayList<>();
+        Employee one = new Employee();
+        one.setUser_id(1);
+        repo.add(one);
+        List<Long> getThis = new ArrayList<>();
+        getThis.add(1l);
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setParent_id(999);
+        employeeDto.setUser_id(1);
+        employeeDto.setUser_id(1);
+        employeeDto.setId(1l);
+        System.out.println("");
+        when(employeeRepository.findAllById(Mockito.any(List.class))).thenReturn(repo);
+        when(employeeRepository.findAll()).thenReturn(repo);
+        Employee employeeResult = employeeService.saveUpdateDelete(employeeDto);
+        assertEquals(1, employeeResult.getUser_id());
+        System.out.println("");
+    }
 
     @Test
     void testFindAll() {
